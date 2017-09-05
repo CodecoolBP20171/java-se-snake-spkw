@@ -13,20 +13,20 @@ import java.util.Random;
 
 public class Laser extends GameEntity implements Animatable, Interactable {
 
-    private Point2D heading;
+    private javafx.geometry.Point2D heading;
 
 
-    Laser(Pane pane) {
+    public Laser(Pane pane) {
         super(pane);
         setImage(Globals.simpleEnemy);
         pane.getChildren().add(this);
 
         int speed = 1;
 
-        setX();
-        setY();
+        setX(SnakeHead.getXc());
+        setY(SnakeHead.getYc());
 
-        double direction = rnd.nextDouble() * 360;
+        double direction = new Random().nextDouble();
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
     }
