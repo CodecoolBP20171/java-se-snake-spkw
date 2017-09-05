@@ -41,7 +41,7 @@ public class SnakeHead extends GameEntity implements Animatable {
             dir = dir + turnRate;
         }
         if (Globals.spaceKeyDown){
-            new Laser(pane);
+            new Laser(pane, dir);
         }
         // set rotation and position
         setRotate(dir);

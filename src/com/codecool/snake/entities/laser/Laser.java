@@ -16,17 +16,17 @@ public class Laser extends GameEntity implements Animatable, Interactable {
     private javafx.geometry.Point2D heading;
 
 
-    public Laser(Pane pane) {
+    public Laser(Pane pane, double dir) {
         super(pane);
         setImage(Globals.simpleEnemy);
         pane.getChildren().add(this);
 
-        int speed = 1;
+        int speed = 10;
 
         setX(SnakeHead.getXc());
         setY(SnakeHead.getYc());
 
-        double direction = new Random().nextDouble();
+        double direction = dir;
         setRotate(direction);
         heading = Utils.directionToVector(direction, speed);
     }
