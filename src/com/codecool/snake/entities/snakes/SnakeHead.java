@@ -26,7 +26,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         this.yc = yc;
         health = 100;
         tail = this;
-        setImage(Globals.snakeHead);
+        setImage(Globals.SPKWHead);
         pane.getChildren().add(this);
 
         addPart(4);
@@ -67,6 +67,7 @@ public class SnakeHead extends GameEntity implements Animatable {
             System.out.println("Game Over");
             Globals.gameLoop.stop();
         }
+        Globals.spaceKeyDown = false;
     }
 
     public static double getXc() {

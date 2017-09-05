@@ -19,12 +19,12 @@ public class Laser extends GameEntity implements Animatable {
 
     public Laser(Pane pane, double dir) {
         super(pane);
-        setImage(Globals.simpleEnemy);
+        setImage(Globals.laser);
         pane.getChildren().add(this);
 
         int speed = 10;
 
-        setX(SnakeHead.getXc());
+        setX(SnakeHead.getXc() + 10);
         setY(SnakeHead.getYc());
 
         double direction = dir;
