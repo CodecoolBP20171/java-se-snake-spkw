@@ -5,13 +5,14 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
 
 import java.awt.geom.Point2D;
 import java.util.Random;
 
-public class Laser extends GameEntity implements Animatable, Interactable {
+public class Laser extends GameEntity implements Animatable {
 
     private javafx.geometry.Point2D heading;
 
@@ -38,16 +39,24 @@ public class Laser extends GameEntity implements Animatable, Interactable {
         }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
+
+        //collide with enemy check
+        for (GameEntity entity : Globals.getGameObjects()) {
+            if (getBoundsInParent().intersects(entity.getBoundsInParent())) {
+                if (entity instanceof SimpleEnemy) {
+                    SimpleEnemy enemy = (SimpleEnemy) entity;
+                    enemy.apply(this);
+                }
+            }
+        }
     }
 
-    @Override
-    public void apply(SnakeHead player) {
-
+    public void apply(GameEntity enemy) {
+        enemy.destroy();
     }
 
-    @Override
     public String getMessage() {
-        return "10 damage";
+        return "Hit!";
     }
 }
 
