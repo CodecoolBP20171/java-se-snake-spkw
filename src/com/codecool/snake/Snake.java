@@ -4,6 +4,8 @@ import com.codecool.snake.entities.GameEntity;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
+
 
 public class Snake extends Application{
 
@@ -11,6 +13,8 @@ public class Snake extends Application{
     public void start(Stage primaryStage) {
         Globals.stage = primaryStage;
         Game game = new Game();
+
+        game.getChildren().add(label());
 
         primaryStage.setTitle("Snake Game");
         primaryStage.setScene(new Scene(game, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT));
@@ -27,9 +31,16 @@ public class Snake extends Application{
         Globals.gameObjects.clear();
 
         Game game1 = new Game();
+        game1.getChildren().add(Globals.healthLabel);
         primaryStage.setTitle("Snake Game");
         primaryStage.setScene(new Scene(game1, Globals.WINDOW_WIDTH, Globals.WINDOW_HEIGHT));
         primaryStage.show();
         game1.start();
+    }
+
+    public Label label(){
+        Label health = Globals.healthLabel;
+
+        return health;
     }
 }

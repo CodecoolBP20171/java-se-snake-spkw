@@ -1,7 +1,6 @@
 package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
-import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -10,11 +9,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.scene.control.Label;
+
 // class for holding all static stuff
 public class Globals {
 
     public static Stage stage;
     public static Pane pane;
+
+    public static Label healthLabel = new Label();
 
     public static final double WINDOW_WIDTH = 1000;
     public static final double WINDOW_HEIGHT = 700;
@@ -61,5 +64,9 @@ public class Globals {
 
     public static List<GameEntity> getGameObjects() {
         return Collections.unmodifiableList(gameObjects);
+    }
+
+    public static void changeHealthLabel(String newText){
+        healthLabel.setText(newText);
     }
 }

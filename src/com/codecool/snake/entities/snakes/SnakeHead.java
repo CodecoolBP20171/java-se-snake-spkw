@@ -24,6 +24,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         setY(yc);
         this.yc = yc;
         health = 100;
+        Globals.healthLabel.setText(""+health);
         tail = this;
         setImage(Globals.SPKWHead);
         pane.getChildren().add(this);
@@ -86,5 +87,6 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void changeHealth(int diff) {
         health += diff;
+        Globals.changeHealthLabel(""+health);
     }
 }
