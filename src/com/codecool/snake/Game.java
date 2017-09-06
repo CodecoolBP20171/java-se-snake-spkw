@@ -1,5 +1,6 @@
 package com.codecool.snake;
 
+import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.powerups.SimplePowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
@@ -37,7 +38,8 @@ public class Game extends Pane {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
                 case SPACE: Globals.spaceKeyDown = false; break;
-
+                case R: Globals.gameLoop.stop(); Snake.restart(Globals.stage);
+                    Globals.pane = null;
             }
         });
 

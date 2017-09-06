@@ -24,7 +24,7 @@ public class SnakeBody extends GameEntity implements Animatable {
     public SnakeBody(Pane pane, GameEntity parent) {
         super(pane);
         this.parent = parent;
-        Random random = new Random();x
+        Random random = new Random();
         setImage(bodyList.get(random.nextInt(7)));
 
         // place it visually below the current tail
