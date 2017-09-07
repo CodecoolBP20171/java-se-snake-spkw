@@ -15,6 +15,7 @@ public class SnakeHead extends GameEntity implements Animatable {
     private final int KILLTOGETHEART = 5;
     private static double speed;
     private static int killCounter;
+    private int bodyCounter;
 
     private static double xc;
     private static double yc;
@@ -75,6 +76,7 @@ public class SnakeHead extends GameEntity implements Animatable {
         // check for game over condition
         if (isOutOfBounds() || health <= 0) {
             System.out.println("Game Over");
+            GameOver.gameOver(""+bodyCounter);
             Globals.gameLoop.stop();
         }
         if (killCounter >= KILLTOGETHEART){
@@ -99,6 +101,7 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void addPart(int numParts) {
         for (int i = 0; i < numParts; i++) {
+            bodyCounter++;
             SnakeBody newPart = new SnakeBody(pane, tail);
             tail = newPart;
         }
