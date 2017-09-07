@@ -38,7 +38,6 @@ public class Snake extends Application{
 
     public Label label(){
         Label health = Globals.healthLabel;
-
         return health;
     }
 }

@@ -6,6 +6,7 @@ import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.enemies.AngryBall;
+import com.codecool.snake.entities.enemies.SamuraiRat;
 import com.codecool.snake.entities.enemies.SimpleEnemy;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.layout.Pane;
@@ -49,8 +50,15 @@ public class Laser extends GameEntity implements Animatable {
                     enemy.die();
                     this.destroy();
                     SnakeHead.setKillCounter(1);
-                } else if (entity instanceof SimpleEnemy) {
+                }
+                else if (entity instanceof SimpleEnemy) {
                     SimpleEnemy enemy = (SimpleEnemy) entity;
+                    enemy.die();
+                    this.destroy();
+                    SnakeHead.setKillCounter(1);
+                }
+                else if (entity instanceof SamuraiRat) {
+                    SamuraiRat enemy = (SamuraiRat) entity;
                     enemy.die();
                     this.destroy();
                     SnakeHead.setKillCounter(1);
