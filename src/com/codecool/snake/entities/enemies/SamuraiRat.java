@@ -21,6 +21,7 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
     private double direction;
     private boolean dashHappened;
     private int dashCounter = 240;
+    private boolean gotShotByLaser;
 
     public SamuraiRat(Pane pane) {
         super(pane);
@@ -47,7 +48,14 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
         }
         // Chance for dash to snake head
         else if (!dashHappened && chance == 50) {
-            heading = Utils.directionToVector(heading.angle(SnakeHead.getXc(), SnakeHead.getYc()), 5);
+            double angleDiff = heading.angle(SnakeHead.getXc(), SnakeHead.getYc());
+            if(angleDiff > 90){
+            direction += angleDiff;
+            }
+            else{
+                direction -= angleDiff;
+            }
+            heading = Utils.directionToVector(direction - angleDiff, 5);
             dashHappened = true;
             dashCounter = 240;
         }
@@ -68,10 +76,10 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
         else {
             dashCounter--;
         }
-        if (getX() >= 950){
+        if (getX() >= 950) {
             setX(949);
         }
-        if (getY() >= 650){
+        if (getY() >= 650) {
             setY(649);
         }
         if (getX() <= 0) {
@@ -88,6 +96,15 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new SamuraiRat(pane);
+    }
+
+    public void die() {
+        if (gotShotByLaser) {
+            destroy();
+            new SamuraiRat(pane);
+        }
+        else gotShotByLaser = true;
     }
 
     @Override
