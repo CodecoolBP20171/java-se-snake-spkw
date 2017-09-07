@@ -6,9 +6,13 @@ import com.codecool.snake.entities.powerups.SimplePowerup;
 import com.codecool.snake.entities.powerups.SuperPowerup;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
+
 public class Game extends Pane {
+
+
 
     public Game() {
         new SnakeHead(this, 500, 500);
@@ -28,6 +32,7 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = true; break;
                 case RIGHT: Globals.rightKeyDown  = true; break;
+                case SPACE: Globals.spaceKeyDown = true; break;
             }
         });
 
@@ -35,8 +40,12 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
+                case SPACE: Globals.spaceKeyDown = false; break;
+                case R: Globals.gameLoop.stop(); Snake.restart(Globals.stage);
+                    Globals.pane = null;
             }
         });
+
         Globals.gameLoop = new GameLoop();
         Globals.gameLoop.start();
     }
