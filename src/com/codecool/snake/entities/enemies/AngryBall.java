@@ -73,10 +73,12 @@ public class AngryBall extends GameEntity implements Animatable, Interactable {
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new AngryBall(pane);
     }
 
     public void die(){
         destroy();
+        new AngryBall(pane);
     }
 
     @Override

@@ -68,10 +68,12 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
         destroy();
+        new SimpleEnemy(pane);
     }
 
     public void die(){
         destroy();
+        new SimpleEnemy(pane);
     }
 
     @Override

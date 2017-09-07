@@ -59,10 +59,6 @@ public class Laser extends GameEntity implements Animatable {
         }
     }
 
-    public void apply(GameEntity enemy) {
-        enemy.destroy();
-    }
-
     public String getMessage() {
         return "Hit!";
     }
