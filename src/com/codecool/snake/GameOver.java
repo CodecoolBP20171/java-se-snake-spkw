@@ -26,15 +26,19 @@ public class GameOver {
         Label label = new Label();
         label.setMinWidth(250);
         label.setMinHeight(100);
-        label.setText("The Game is over" + "\n" + "Press r to start a new Game" + "\n" + "Body size " + bodyParts);
-        Button cloesetheWindow = new Button("Close the window");
+
+        label.setText("The Game is over" + "\n" + "\n" + "Body size " + bodyParts);
+        Button restart = new Button("Restart Game");
+        Button cloesetheWindow = new Button("Close the Game");
+
+        restart.setOnAction(event -> {Snake.restart(Globals.stage); gameOverWindow.close();});
         cloesetheWindow.setOnAction(event -> {
             Globals.stage.close();
             gameOverWindow.close();
         });
 
         VBox layout = new VBox();
-        layout.getChildren().addAll(label, cloesetheWindow);
+        layout.getChildren().addAll(label, cloesetheWindow, restart);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
