@@ -1,27 +1,39 @@
 package com.codecool.snake.entities.snakes;
 
+import com.codecool.snake.*;
 import com.codecool.snake.entities.GameEntity;
-import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
-import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Interactable;
+import com.codecool.snake.entities.laser.Laser;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
 public class SnakeHead extends GameEntity implements Animatable {
 
-    private static final float speed = 2;
+    private static float speed;
     private static final float turnRate = 2;
+
+    private static double xc;
+    private static double yc;
+
+    private final int maxHealth = 100;
+    private final float maxSpeed = 3;
+    private final float minSpeed = 2;
+
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
 
     public SnakeHead(Pane pane, int xc, int yc) {
         super(pane);
+        SnakeHead.speed = minSpeed;
         setX(xc);
+        this.xc = xc;
         setY(yc);
+        this.yc = yc;
         health = 100;
+        Globals.healthLabel.setText(""+health);
         tail = this;
-        setImage(Globals.snakeHead);
+        setImage(Globals.SPKWHead);
         pane.getChildren().add(this);
 
         addPart(4);
@@ -35,11 +47,16 @@ public class SnakeHead extends GameEntity implements Animatable {
         if (Globals.rightKeyDown) {
             dir = dir + turnRate;
         }
+        if (Globals.spaceKeyDown){
+            new Laser(pane, dir);
+        }
         // set rotation and position
         setRotate(dir);
         Point2D heading = Utils.directionToVector(dir, speed);
         setX(getX() + heading.getX());
+        this.xc = getX() + heading.getX();
         setY(getY() + heading.getY());
+        this.yc = getY() + heading.getY();
 
         // check if collided with an enemy or a powerup
         for (GameEntity entity : Globals.getGameObjects()) {
@@ -57,6 +74,15 @@ public class SnakeHead extends GameEntity implements Animatable {
             System.out.println("Game Over");
             Globals.gameLoop.stop();
         }
+        Globals.spaceKeyDown = false;
+    }
+
+    public static double getXc() {
+        return xc;
+    }
+
+    public static double getYc(){
+        return yc;
     }
 
     public void addPart(int numParts) {
@@ -68,5 +94,16 @@ public class SnakeHead extends GameEntity implements Animatable {
 
     public void changeHealth(int diff) {
         health += diff;
+        Globals.changeHealthLabel(""+health);
+        if (health > maxHealth){
+            health = maxHealth;
+        }
+    }
+
+    public void changeSpeed(double diff){
+        speed += diff;
+        if (speed > maxSpeed){
+            speed = maxSpeed;
+        }
     }
 }

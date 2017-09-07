@@ -8,13 +8,11 @@ import javafx.scene.layout.Pane;
 
 import java.util.Random;
 
-public class SimplePowerup extends GameEntity implements Interactable {
+public class BonusHealth extends GameEntity implements Interactable {
 
-    private static int counter;
-
-    public SimplePowerup(Pane pane) {
+    public BonusHealth(Pane pane) {
         super(pane);
-        setImage(Globals.powerupBerry);
+        setImage(Globals.healthPowerup);
         pane.getChildren().add(this);
 
         Random rnd = new Random();
@@ -24,14 +22,9 @@ public class SimplePowerup extends GameEntity implements Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        snakeHead.addPart(2);
+        snakeHead.addPart(1);
+        snakeHead.changeHealth(10);
         destroy();
-        new SimplePowerup(pane);
-        counter++;
-        if (counter >= 5){
-            new SuperPowerup(pane);
-            counter = 0;
-        }
     }
 
     @Override
