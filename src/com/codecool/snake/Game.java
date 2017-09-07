@@ -17,14 +17,15 @@ public class Game extends Pane {
     public Game() {
         new SnakeHead(this, 500, 500);
 
+        //enemy creating
         for (int i = 0; i < 10; i++) {
             new AngryBall(this);
         }
 
-//        new SamuraiRat(this);
-//        for (int i = 0; i < 10; i++) {
-//            new SimplePowerup(this);
-//        }
+        for (int i = 0; i < 4; i++) {
+            new SimpleEnemy(this);
+        }
+
         for (int i = 0; i < 5; i++) {
             new SamuraiRat(this);
         }
@@ -32,7 +33,11 @@ public class Game extends Pane {
             new SimpleEnemy(this);
         }
 
-        new SimplePowerup(this);
+
+        //powerup creating
+        for (int i = 0; i < 5; i++) {
+            new SimplePowerup(this);
+        }
 
     }
 
@@ -42,7 +47,6 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = true; break;
                 case RIGHT: Globals.rightKeyDown  = true; break;
-                case SPACE: Globals.spaceKeyDown = true; break;
             }
         });
 
@@ -50,7 +54,7 @@ public class Game extends Pane {
             switch (event.getCode()) {
                 case LEFT:  Globals.leftKeyDown  = false; break;
                 case RIGHT: Globals.rightKeyDown  = false; break;
-                case SPACE: Globals.spaceKeyDown = false; break;
+                case SPACE: Globals.spaceKeyDown = true; break;
                 case R: Globals.gameLoop.stop(); Snake.restart(Globals.stage);
                     Globals.pane = null;
             }
