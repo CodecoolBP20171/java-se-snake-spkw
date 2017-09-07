@@ -65,8 +65,8 @@ public class AngryBall extends GameEntity implements Animatable, Interactable {
             heading = Utils.directionToVector(direction, speed);
         }
 
-//        setX(getX() + heading.getX());
-//        setY(getY() + heading.getY());
+        setX(getX() + heading.getX());
+        setY(getY() + heading.getY());
     }
 
     @Override

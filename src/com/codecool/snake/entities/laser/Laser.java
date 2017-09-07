@@ -49,6 +49,11 @@ public class Laser extends GameEntity implements Animatable {
                     enemy.die();
                     this.destroy();
                     SnakeHead.setKillCounter(1);
+                } else if (entity instanceof SimpleEnemy) {
+                    SimpleEnemy enemy = (SimpleEnemy) entity;
+                    enemy.die();
+                    this.destroy();
+                    SnakeHead.setKillCounter(1);
                 }
             }
         }

@@ -29,6 +29,7 @@ public class Globals {
     public static Image simpleEnemy = new Image("simple_enemy.png");
     public static Image samuraiRatEnemy = new Image("samurai_rat.png");
     public static Image angryBall = new Image("angryBall.png");
+    public static Image ghost = new Image("ghost.png");
 
     public static Image laser = new Image("laser2.png");
 
