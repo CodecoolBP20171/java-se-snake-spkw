@@ -14,7 +14,7 @@ import java.security.SecureRandom;
 public class SamuraiRat extends GameEntity implements Animatable, Interactable {
 
     private static final int damage = 20;
-    private final int RIGHT_MARGIN = 100, BOTTOM_MARGIN = 100;
+    private final int RIGHT_MARGIN = 50, BOTTOM_MARGIN = 50;
     int speed;
     SecureRandom rnd;
     private Point2D heading;
@@ -33,7 +33,6 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
         this.direction = rnd.nextDouble() * 360;
         setRotate(direction);
         this.heading = Utils.directionToVector(direction, speed);
-
     }
 
     @Override
@@ -42,7 +41,8 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
 
         // Check for collision with margin
         if (isOutOfBounds(0, RIGHT_MARGIN, 0, BOTTOM_MARGIN)) {
-            direction += 180;
+            direction %= 360;
+            direction += 140;
             heading = Utils.directionToVector(direction, speed);
         }
         // Chance for dash to snake head
@@ -68,7 +68,18 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
         else {
             dashCounter--;
         }
-
+        if (getX() >= 950){
+            setX(949);
+        }
+        if (getY() >= 650){
+            setY(649);
+        }
+        if (getX() <= 0) {
+            setX(1);
+        }
+        if (getY() <= 0) {
+            setY(1);
+        }
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
     }
