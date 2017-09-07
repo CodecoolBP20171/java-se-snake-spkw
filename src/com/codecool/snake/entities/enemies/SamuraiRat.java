@@ -14,7 +14,7 @@ import java.security.SecureRandom;
 public class SamuraiRat extends GameEntity implements Animatable, Interactable {
 
     private static final int damage = 20;
-    private final int RIGHT_MARGIN = 30, BOTTOM_MARGIN = 30;
+    private final int RIGHT_MARGIN = 100, BOTTOM_MARGIN = 100;
     int speed;
     SecureRandom rnd;
     private Point2D heading;
@@ -53,8 +53,8 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
         }
 
         // If we didn't roll, we still need to know if we are in an existing dash animation.
-        else if (!dashHappened) {
-            // Random chance to change direction.
+        // Random chance to change direction.
+        else if (!dashHappened && chance == 0) {
             direction = Utils.randomizeDirection(direction, 60);
             heading = Utils.directionToVector(direction, speed);
         }
@@ -64,7 +64,7 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
             dashHappened = false;
         }
 
-        // continue dash animation
+        // Continue dash animation
         else {
             dashCounter--;
         }
