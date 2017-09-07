@@ -15,5 +15,4 @@ public class Snake extends Application {
         primaryStage.show();
         game.start();
     }
-
 }
