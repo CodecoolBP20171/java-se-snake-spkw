@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
 
 import java.util.Random;
 
-// a simple powerup that makes the snake grow TODO make other powerups
 public class SuperPowerup extends GameEntity implements Interactable {
 
     public SuperPowerup(Pane pane) {
@@ -24,7 +23,7 @@ public class SuperPowerup extends GameEntity implements Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        snakeHead.changeSpeed();
+        snakeHead.changeSpeed(0.2);
         snakeHead.addPart(1);
         destroy();
     }
