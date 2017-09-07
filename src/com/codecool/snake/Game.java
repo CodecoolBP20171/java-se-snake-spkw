@@ -20,15 +20,16 @@ public class Game extends Pane {
         for (int i = 0; i < 10; i++) {
             new AngryBall(this);
         }
+
 //        new SamuraiRat(this);
 //        for (int i = 0; i < 10; i++) {
 //            new SimplePowerup(this);
 //        }
-//
-//        for (int i = 0; i < 4; i++) {
-//            new SimpleEnemy(this);
-//        }
-//
+
+        for (int i = 0; i < 4; i++) {
+            new SimpleEnemy(this);
+        }
+
         new SimplePowerup(this);
 
     }

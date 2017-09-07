@@ -5,41 +5,61 @@ import com.codecool.snake.Globals;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Interactable;
-import com.codecool.snake.entities.laser.Laser;
-import com.codecool.snake.entities.powerups.BonusHealth;
 
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
-// a simple enemy TODO make better ones.
 public class SimpleEnemy extends GameEntity implements Animatable, Interactable {
 
-    private Point2D heading;
     private static final int damage = 10;
+    private final int SIZE = 30;
+    private final int spawnRadius = SIZE*2;
+    int speed;
+    SecureRandom rnd;
+    private Point2D heading;
+    private double direction;
 
     public SimpleEnemy(Pane pane) {
         super(pane);
+        this.speed = 2;
+        this.rnd = new SecureRandom();
 
-        setImage(Globals.simpleEnemy);
+        setImage(Globals.ghost);
         pane.getChildren().add(this);
-        int speed = 1;
-        Random rnd = new Random();
-        setX(rnd.nextDouble() * Globals.WINDOW_WIDTH);
-        setY(rnd.nextDouble() * Globals.WINDOW_HEIGHT);
 
-        double direction = rnd.nextDouble() * 360;
+        double actualX = rnd.nextDouble() * (Globals.WINDOW_WIDTH - SIZE);
+        double actualY = rnd.nextDouble() * (Globals.WINDOW_HEIGHT - SIZE);
+        double snakeHeadX = SnakeHead.getXc();
+        double snakeHeadY = SnakeHead.getYc();
+
+        while (snakeHeadX - spawnRadius < actualX && actualX < snakeHeadX + spawnRadius &&
+                snakeHeadY - spawnRadius < actualY && actualY < snakeHeadY + spawnRadius){
+            actualX = rnd.nextDouble() * (Globals.WINDOW_WIDTH - SIZE);
+            actualY = rnd.nextDouble() * (Globals.WINDOW_HEIGHT - SIZE);
+        }
+
+        setX(actualX);
+        setY(actualY);
+        this.direction = rnd.nextDouble() * 360;
+
         setRotate(direction);
-        heading = Utils.directionToVector(direction, speed);
+        this.heading = Utils.directionToVector(direction, speed);
+
     }
 
     @Override
     public void step() {
-        if (isOutOfBounds()) {
+
+        // Check for collision with margin
+        if (isOutOfBounds(0, SIZE, 0, SIZE)) {
             destroy();
+            new SimpleEnemy(pane);
+            heading = Utils.directionToVector(direction, speed);
         }
+
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
     }
@@ -50,12 +70,12 @@ public class SimpleEnemy extends GameEntity implements Animatable, Interactable 
         destroy();
     }
 
-    public void apply(Laser laser){
+    public void die(){
         destroy();
     }
 
     @Override
     public String getMessage() {
-        return "10 damage";
+        return damage + " damage from " + AngryBall.class.getSimpleName();
     }
 }
