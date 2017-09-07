@@ -25,7 +25,9 @@ public class Game extends Pane {
 //        for (int i = 0; i < 10; i++) {
 //            new SimplePowerup(this);
 //        }
-
+        for (int i = 0; i < 2; i++) {
+            new SamuraiRat(this);
+        }
         for (int i = 0; i < 4; i++) {
             new SimpleEnemy(this);
         }

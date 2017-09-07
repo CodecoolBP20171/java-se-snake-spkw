@@ -19,6 +19,8 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
     SecureRandom rnd;
     private Point2D heading;
     private double direction;
+    private boolean dashHappened;
+    private int dashCounter = 240;
 
     public SamuraiRat(Pane pane) {
         super(pane);
@@ -36,21 +38,37 @@ public class SamuraiRat extends GameEntity implements Animatable, Interactable {
 
     @Override
     public void step() {
-        int chanceForAction = rnd.nextInt(100);
+        int chance = rnd.nextInt(100);
 
         // Check for collision with margin
         if (isOutOfBounds(0, RIGHT_MARGIN, 0, BOTTOM_MARGIN)) {
             direction += 180;
             heading = Utils.directionToVector(direction, speed);
         }
-        // Random chance to change direction
-        else if (chanceForAction == 0) {
+        // Chance for dash to snake head
+        else if (!dashHappened && chance == 50) {
+            heading = Utils.directionToVector(heading.angle(SnakeHead.getXc(), SnakeHead.getYc()), 5);
+            dashHappened = true;
+            dashCounter = 240;
+        }
+
+        // If we didn't roll, we still need to know if we are in an existing dash animation.
+        else if (!dashHappened) {
+            // Random chance to change direction.
             direction = Utils.randomizeDirection(direction, 60);
             heading = Utils.directionToVector(direction, speed);
         }
-        // Chance for strike to snake head
-        else if (chanceForAction == 50){
+
+        // Here we know we are in dash animation. Check for end of the animation.
+        else if (dashCounter == 0) {
+            dashHappened = false;
         }
+
+        // continue dash animation
+        else {
+            dashCounter--;
+        }
+
         setX(getX() + heading.getX());
         setY(getY() + heading.getY());
     }
