@@ -2,6 +2,7 @@ package com.codecool.snake;
 
 import com.codecool.snake.entities.GameEntity;
 import javafx.scene.image.Image;
+import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -28,6 +29,7 @@ public class Globals {
     public static Image SPKWHead = new Image("SPKWHead.png");
     public static Image snakeBody = new Image("snake_body.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
+    public static Image samuraiRatEnemy = new Image("samurai_rat.png");
 
     public static Image laser = new Image("laser2.png");
 
@@ -42,6 +44,7 @@ public class Globals {
   
     public static Image superPowerup = new Image("powerup1.png");
     public static Image healthPowerup = new Image("heart.png");
+
     public static Image powerupBerry = new Image("powerup_berry.png");
 
   

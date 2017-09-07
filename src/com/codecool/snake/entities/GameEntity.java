@@ -26,7 +26,15 @@ public abstract class GameEntity extends ImageView {
 
     protected boolean isOutOfBounds() {
         if (getX() > Globals.WINDOW_WIDTH || getX() < 0 ||
-            getY() > Globals.WINDOW_HEIGHT || getY() < 0) {
+                getY() > Globals.WINDOW_HEIGHT || getY() < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean isOutOfBounds(int leftMargin, int rightMargin, int topMargin, int bottomMargin) {
+        if (getX() > Globals.WINDOW_WIDTH - rightMargin || getX() < leftMargin ||
+                getY() > Globals.WINDOW_HEIGHT - bottomMargin || getY() < topMargin) {
             return true;
         }
         return false;
