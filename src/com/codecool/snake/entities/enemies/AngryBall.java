@@ -5,6 +5,7 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Interactable;
+import com.codecool.snake.entities.laser.Laser;
 import com.codecool.snake.entities.snakes.SnakeHead;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
@@ -14,7 +15,8 @@ import java.security.SecureRandom;
 public class AngryBall extends GameEntity implements Animatable, Interactable {
 
     private static final int damage = 20;
-    private final int RIGHT_MARGIN = 30, BOTTOM_MARGIN = 30;
+    private final int SIZE = 30;
+    private final int spawnRadius = SIZE*2;
     int speed;
     SecureRandom rnd;
     private Point2D heading;
@@ -24,11 +26,25 @@ public class AngryBall extends GameEntity implements Animatable, Interactable {
         super(pane);
         this.speed = 1;
         this.rnd = new SecureRandom();
-        setImage(Globals.simpleEnemy);
+
+        setImage(Globals.angryBall);
         pane.getChildren().add(this);
-        setX(rnd.nextDouble() * (Globals.WINDOW_WIDTH - RIGHT_MARGIN));
-        setY(rnd.nextDouble() * (Globals.WINDOW_HEIGHT - BOTTOM_MARGIN));
+
+        double actualX = rnd.nextDouble() * (Globals.WINDOW_WIDTH - SIZE);
+        double actualY = rnd.nextDouble() * (Globals.WINDOW_HEIGHT - SIZE);
+        double snakeHeadX = SnakeHead.getXc();
+        double snakeHeadY = SnakeHead.getYc();
+
+        while (snakeHeadX - spawnRadius < actualX && actualX < snakeHeadX + spawnRadius &&
+                snakeHeadY - spawnRadius < actualY && actualY < snakeHeadY + spawnRadius){
+            actualX = rnd.nextDouble() * (Globals.WINDOW_WIDTH - SIZE);
+            actualY = rnd.nextDouble() * (Globals.WINDOW_HEIGHT - SIZE);
+        }
+
+        setX(actualX);
+        setY(actualY);
         this.direction = rnd.nextDouble() * 360;
+
         setRotate(direction);
         this.heading = Utils.directionToVector(direction, speed);
 
@@ -38,7 +54,7 @@ public class AngryBall extends GameEntity implements Animatable, Interactable {
     public void step() {
 
         // Check for collision with margin
-        if (isOutOfBounds(0, RIGHT_MARGIN, 0, BOTTOM_MARGIN)) {
+        if (isOutOfBounds(0, SIZE, 0, SIZE)) {
             direction += 180;
             heading = Utils.directionToVector(direction, speed);
         }
@@ -48,13 +64,18 @@ public class AngryBall extends GameEntity implements Animatable, Interactable {
             direction = Utils.randomizeDirection(direction, 60);
             heading = Utils.directionToVector(direction, speed);
         }
-        setX(getX() + heading.getX());
-        setY(getY() + heading.getY());
+
+//        setX(getX() + heading.getX());
+//        setY(getY() + heading.getY());
     }
 
     @Override
     public void apply(SnakeHead player) {
         player.changeHealth(-damage);
+        destroy();
+    }
+
+    public void die(){
         destroy();
     }
 

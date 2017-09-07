@@ -5,20 +5,23 @@ import com.codecool.snake.entities.GameEntity;
 import com.codecool.snake.entities.Animatable;
 import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.laser.Laser;
+import com.codecool.snake.entities.powerups.BonusHealth;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 
 public class SnakeHead extends GameEntity implements Animatable {
 
-    private static float speed;
     private static final float turnRate = 2;
+    private final int KILLTOGETHEART = 5;
+    private static double speed;
+    private static int killCounter;
 
     private static double xc;
     private static double yc;
 
     private final int maxHealth = 100;
     private final float maxSpeed = 3;
-    private final float minSpeed = 2;
+    private final double minSpeed = 1.5;
 
     private GameEntity tail; // the last element. Needed to know where to add the next part.
     private int health;
@@ -74,6 +77,10 @@ public class SnakeHead extends GameEntity implements Animatable {
             System.out.println("Game Over");
             Globals.gameLoop.stop();
         }
+        if (killCounter >= KILLTOGETHEART){
+            new BonusHealth(pane);
+            killCounter = 0;
+        }
         Globals.spaceKeyDown = false;
     }
 
@@ -85,6 +92,11 @@ public class SnakeHead extends GameEntity implements Animatable {
         return yc;
     }
 
+    public static void setKillCounter(int x){
+        killCounter += x;
+    }
+
+
     public void addPart(int numParts) {
         for (int i = 0; i < numParts; i++) {
             SnakeBody newPart = new SnakeBody(pane, tail);
@@ -93,11 +105,14 @@ public class SnakeHead extends GameEntity implements Animatable {
     }
 
     public void changeHealth(int diff) {
+        if (diff < 0){
+            speed = minSpeed;
+        }
         health += diff;
-        Globals.changeHealthLabel(""+health);
         if (health > maxHealth){
             health = maxHealth;
         }
+        Globals.changeHealthLabel(""+health);
     }
 
     public void changeSpeed(double diff){

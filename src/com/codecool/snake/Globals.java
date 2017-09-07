@@ -24,12 +24,11 @@ public class Globals {
     public static final double WINDOW_HEIGHT = 700;
     public static final double POWERUP_SIZE = 40;
 
-
-    public static Image snakeHead = new Image("snake_head.png");
     public static Image SPKWHead = new Image("SPKWHead.png");
-    public static Image snakeBody = new Image("snake_body.png");
+
     public static Image simpleEnemy = new Image("simple_enemy.png");
     public static Image samuraiRatEnemy = new Image("samurai_rat.png");
+    public static Image angryBall = new Image("angryBall.png");
 
     public static Image laser = new Image("laser2.png");
 
