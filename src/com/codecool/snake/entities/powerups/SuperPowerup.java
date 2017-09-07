@@ -23,7 +23,7 @@ public class SuperPowerup extends GameEntity implements Interactable {
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        snakeHead.changeSpeed(0.2);
+        snakeHead.changeSpeed(0.5);
         snakeHead.addPart(1);
         destroy();
     }
