@@ -8,8 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
+
 import java.awt.*;
 import java.util.*;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import java.util.List;
 
 public class SnakeBody extends GameEntity implements Animatable {
@@ -20,6 +25,7 @@ public class SnakeBody extends GameEntity implements Animatable {
     private List<Image> bodyList = Arrays.asList(Globals.snakeBodyBlue,
             Globals.snakeBodyCyan, Globals.snakeBodyDark,Globals.snakeBodyGreen,
             Globals.snakeBodyOrange,Globals.snakeBodyPink,Globals.snakeBodyRed,Globals.snakeBodyYellow);
+
 
     public SnakeBody(Pane pane, GameEntity parent) {
         super(pane);

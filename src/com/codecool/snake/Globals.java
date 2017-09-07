@@ -21,12 +21,13 @@ public class Globals {
 
     public static final double WINDOW_WIDTH = 1000;
     public static final double WINDOW_HEIGHT = 700;
+    public static final double POWERUP_SIZE = 40;
+
 
     public static Image snakeHead = new Image("snake_head.png");
     public static Image SPKWHead = new Image("SPKWHead.png");
     public static Image snakeBody = new Image("snake_body.png");
     public static Image simpleEnemy = new Image("simple_enemy.png");
-    public static Image powerupBerry = new Image("powerup_berry.png");
 
     public static Image laser = new Image("laser2.png");
 
@@ -38,6 +39,12 @@ public class Globals {
     public static Image snakeBodyPink = new Image("snakeBodyPink.png");
     public static Image snakeBodyRed = new Image("snakeBodyRed.png");
     public static Image snakeBodyYellow = new Image("snakeBodyYellow.png");
+  
+    public static Image superPowerup = new Image("powerup1.png");
+    public static Image healthPowerup = new Image("heart.png");
+    public static Image powerupBerry = new Image("powerup_berry.png");
+
+  
     //.. put here the other images you want to use
 
     public static boolean leftKeyDown;

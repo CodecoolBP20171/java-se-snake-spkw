@@ -8,34 +8,28 @@ import javafx.scene.layout.Pane;
 
 import java.util.Random;
 
-public class SimplePowerup extends GameEntity implements Interactable {
+public class SuperPowerup extends GameEntity implements Interactable {
 
-    private static int counter;
-
-    public SimplePowerup(Pane pane) {
+    public SuperPowerup(Pane pane) {
         super(pane);
-        setImage(Globals.powerupBerry);
+        setImage(Globals.superPowerup);
         pane.getChildren().add(this);
 
         Random rnd = new Random();
+
         setX(rnd.nextDouble() * (Globals.WINDOW_WIDTH-Globals.POWERUP_SIZE));
         setY(rnd.nextDouble() * (Globals.WINDOW_HEIGHT-Globals.POWERUP_SIZE));
     }
 
     @Override
     public void apply(SnakeHead snakeHead) {
-        snakeHead.addPart(2);
+        snakeHead.changeSpeed(0.2);
+        snakeHead.addPart(1);
         destroy();
-        new SimplePowerup(pane);
-        counter++;
-        if (counter >= 5){
-            new SuperPowerup(pane);
-            counter = 0;
-        }
     }
 
     @Override
     public String getMessage() {
-        return "Got simple power-up :)";
+        return "Got super power-up :)";
     }
 }
